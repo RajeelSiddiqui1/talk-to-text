@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk to Text AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Library for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+<body>
+    <div id="loader" >
+    <div class="loader-logo">
+      <i class="fa-solid fa-microphone-lines"></i> Talk to Text Pro
+    </div>
+    <div class="spinner"></div>
+  </div>
+    <div class="content" id="main-content">
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-microphone"></i> Talk to Text AI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#developers">Developers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-sign ms-2" href="authentication/login.html">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-sign ms-2" href="authentication/register.html">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with SVG Mask -->
+    <section class="hero" id="home">
+        <!-- SVG Mask for Hero Section -->
+        <svg class="hero-mask" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="gradient-shape" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#448aff" stop-opacity="0.3" />
+                    <stop offset="50%" stop-color="#82b1ff" stop-opacity="0.2" />
+                    <stop offset="100%" stop-color="#448aff" stop-opacity="0.3" />
+                </linearGradient>
+            </defs>
+            <path class="hero-mask-shape" d="M0,0 C50,50 50,100 100,100 L100,0 Z" />
+        </svg>
+        
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+        
+        <div class="container hero-content">
+            <div class="row">
+                <div class="col-lg-7">
+                    <h1 data-aos="fade-right" data-aos-duration="1000">Transform Your Speech into Text with AI</h1>
+                    <p class="fade-in delay-1" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">Experience the next generation of speech recognition technology. Our AI-powered solution converts your spoken words into accurate text in real-time with over 95% accuracy across multiple languages.</p>
+                    <a href="dashboard.html" class="btn btn-primary fade-in delay-2" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="400">Get Started <i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up" data-aos-duration="800">Amazing Features</h2>
+                <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">Discover what makes our Talk to Text AI special</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card" data-aos="fade-up" data-aos-duration="800">
+                        <div class="feature-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h3>Real-time Conversion</h3>
+                        <p>Convert your speech to text instantly with our advanced AI algorithms. No delays, just accurate transcription. Our system processes audio in milliseconds, providing immediate text output as you speak.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI-Powered Accuracy</h3>
+                        <p>Leveraging the latest in machine learning to understand context and improve accuracy over time. Our neural networks continuously learn from interactions, achieving industry-leading 95%+ accuracy.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>Multi-language Support</h3>
+                        <p>Our AI understands over 50 languages and dialects, making it accessible to users worldwide. From English to Mandarin, Spanish to Arabic, we've got you covered with native-level accuracy.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Secure & Private</h3>
+                        <p>Your data is encrypted end-to-end. We never store your audio recordings without permission, ensuring complete privacy and security for all your transcription needs.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <div class="feature-icon">
+                            <i class="fas fa-customize"></i>
+                        </div>
+                        <h3>Custom Vocabulary</h3>
+                        <p>Add industry-specific terms, names, and jargon to create a personalized vocabulary that understands your unique speech patterns and terminology.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                        <div class="feature-icon">
+                            <i class="fas fa-integration"></i>
+                        </div>
+                        <h3>Easy Integration</h3>
+                        <p>Seamlessly integrate our API with your favorite applications. We offer plugins for popular platforms like WordPress, Slack, and Microsoft Office.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section with SVG Mask -->
+    <section class="about" id="about">
+        <!-- SVG Mask for About Section -->
+        <svg class="about-mask" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="gradient-about" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#82b1ff" stop-opacity="0.2" />
+                    <stop offset="50%" stop-color="#448aff" stop-opacity="0.3" />
+                    <stop offset="100%" stop-color="#82b1ff" stop-opacity="0.2" />
+                </linearGradient>
+            </defs>
+            <path class="about-mask-shape" d="M0,100 C30,70 70,30 100,0 L100,100 Z" />
+        </svg>
+        
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up" data-aos-duration="800">About Us</h2>
+                <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">Learn more about Talk to Text AI</p>
+            </div>
+            
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-content" data-aos="fade-right" data-aos-duration="800">
+                        <h2>Revolutionizing Speech Recognition</h2>
+                        <p>Talk to Text AI was founded in 2020 with a simple mission: to make speech recognition technology accessible to everyone. Our team of AI experts, linguists, and software engineers have created a platform that transforms how people interact with technology.</p>
+                        <p>We believe that voice is the most natural form of human communication, and our technology bridges the gap between spoken word and digital text. Whether you're a professional creating documents, a student taking notes, or someone looking to communicate more effectively, our AI-powered solution is designed for you.</p>
+                        <p>With over 1 million users worldwide and recognition from leading tech publications, we're proud to be at the forefront of speech recognition innovation.</p>
+                        <a href="#developers" class="btn btn-primary mt-3">Meet Our Team</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-img mt-5 mt-lg-0" data-aos="fade-left" data-aos-duration="800" data-aos-delay="300">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Team Collaboration">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developers Section -->
+    <section class="developers" id="developers">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up" data-aos-duration="800">Our Developers</h2>
+                <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">The talented team behind Talk to Text AI</p>
+            </div>
+            
+            <div class="row">
+                <!-- Developer 1 -->
+                <div class="col-md-4">
+                    <div class="developer-card" data-aos="fade-up" data-aos-duration="800">
+                        <div class="developer-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="developer-info">
+                            <h3>Hafiz Aadil Abd Al MOIZZ Noorani</h3>
+                            <p class="text-primary">Freelancer</p>
+                            <p>Full Stack Developer with expertise in AI integration and web development. Specializes in creating seamless user experiences with cutting-edge technology.</p>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/in/hafiz-aadil-abdul-moizz-noorani-full-stack-developer-106a2b315/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="mailto:aadilabdulmoizznoorani@gmail.com"><i class="fas fa-envelope"></i></a>
+                                <a href="http://hafizaadilabdulmoizznooraniportfoliyo.netlify.app/" target="_blank"><i class="fas fa-globe"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Developer 2 -->
+                <div class="col-md-4">
+                    <div class="developer-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                        <div class="developer-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="developer-info">
+                            <h3>Muhammad Hamza</h3>
+                            <p class="text-primary">Full-Stack AI Developer at IF condition</p>
+                            <p>Specialized in AI development and full-stack solutions with modern technologies. Passionate about creating intelligent systems that solve real-world problems.</p>
+                            <div class="social-links">
+                                <a href="www.linkedin.com/in/muhammad-hamza-507761274" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://github.com/Hamza123545" target="_blank"><i class="fab fa-github"></i></a>
+                                <a href="mailto:hamzapersnol321@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Developer 3 -->
+                <div class="col-md-4">
+                    <div class="developer-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <div class="developer-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="developer-info">
+                            <h3>Muskan Riaz</h3>
+                            <p class="text-primary">Software Management Officer</p>
+                            <p>Skilled in software management and development with a focus on educational technology. Ensures our projects are delivered on time and exceed expectations.</p>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/in/muskan-riaz-928516379?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://github.com/MuskanRiaz15" target="_blank"><i class="fab fa-github"></i></a>
+                                <a href="mailto:muskanriazaptech@gmail.com"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Talk to Text AI</h3>
+                    <p>Transforming speech into text with the power of artificial intelligence.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2023 Talk to Text AI. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Library for scroll animations -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+     <script src="assets/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkToText Pro - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets/css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="assets/css/toast.css">
+</head>
+
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <div class="logo-text">TalkToText Pro</div>
+                </div>
+            </div>
+
+            <div class="sidebar-nav">
+               <div class="nav-item active" data-page="dashboard.html">
+                    <div class="nav-icon"><i class="fas fa-home"></i></div>
+                    <div class="nav-text">Home</div>
+                </div>
+
+                <div class="nav-item" data-page="authentication/profile.html" style="display: none;">
+                    <div class="nav-icon"><i class="fas fa-user"></i></div>
+                    <div class="nav-text">Profile</div>
+                </div>
+
+                <div class="nav-item " data-page="chatboat.html">
+                    <div class="nav-icon"><i class="fas fa-comments"></i></div>
+                    <div class="nav-text">Chat</div>
+                </div>
+
+                <div class="nav-item" data-page="history.html" style="display: none;">
+                    <div class="nav-icon"><i class="fas fa-history"></i></div>
+                    <div class="nav-text">History</div>
+                </div>
+               
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="nav-item" id="logoutBtn">
+                    <div class="nav-icon"><i class="fas fa-sign-out-alt"></i></div>
+                    <div class="nav-text">Logout</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay for mobile -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+<div id="noteModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDate"></p>
+        <div id="modalHistory"></div>
+        <div class="modal-actions" style="margin-top: 15px; text-align: right;">
+            <button onclick="downloadAsPDF()" class="btn-download">Download PDF</button>
+            <button onclick="downloadAsWord()" class="btn-download">Download Word</button>
+        </div>
+    </div>
+</div>
+
+
+                <div class="header-actions">
+                    <div class="theme-toggle" id="theme-toggle">
+                        <div class="theme-toggle-handle"></div>
+                    </div>
+
+                    <div class="user-profile">
+                        <div class="user-avatar">M.</div>
+                        <div class="user-info">
+                            <div class="user-name">Mr...</div>
+                            <div class="user-role">Guest User</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="welcome-section fade-in">
+                    <h1 class="welcome-title">Welcome back, <span id="u_name"></span>!</h1>
+                    <p class="welcome-subtitle">Here's what's been happening with your meetings.</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card slide-in" style="animation-delay: 0.1s;">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-file-audio"></i>
+                        </div>
+                        <div class="stat-value" id="file_proccess">0</div>
+                        <div class="stat-label">Total Processed Files</div>
+                    </div>
+
+                    <div class="stat-card slide-in" style="animation-delay: 0.2s;">
+                        <div class="stat-icon green">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-value">42h</div>
+                        <div class="stat-label">Total Audio Time</div>
+                    </div>
+
+                    <div class="stat-card slide-in" style="animation-delay: 0.3s;">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-value">92%</div>
+                        <div class="stat-label">Accuracy Rate</div>
+                    </div>
+
+
+                </div>
+
+                <div class="quick-actions">
+                    <div class="action-card pulse" id="uploadMeetingAudio">
+                        <div class="action-icon upload">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>Upload Meeting Audio</h3>
+                            <p>Process a new recording</p>
+                        </div>
+                    </div>
+
+                    <div class="action-card" id="viewhistory">
+                        <div class="action-icon notes">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>View All Notes</h3>
+                            <p>Browse your meeting history</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usage Graphs -->
+                <div class="usage-graphs">
+                    <div class="graph-container">
+                        <div class="section-title">
+                            <span>Weekly Usage</span>
+                        </div>
+                        <div class="mini-chart-container">
+                            <canvas id="weeklyUsageChart"></canvas>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="progress-section">
+                    <div class="section-title">
+                        <span>Current Processing</span>
+                        <span>65%</span>
+                    </div>
+
+                    <div class="progress-tracker">
+                        <div class="progress-item">
+                            <div class="progress-status status-completed">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="progress-info">
+                                <h4>Transcription</h4>
+                                <p>Converting audio to text</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill fill-100"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-status status-processing">
+                                <i class="fas fa-sync-alt fa-spin"></i>
+                            </div>
+                            <div class="progress-info">
+                                <h4>Translation</h4>
+                                <p>Translating to English</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill fill-65"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-status status-pending">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="progress-info">
+                                <h4>Summary Generation</h4>
+                                <p>Creating meeting summary</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill fill-0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Graph -->
+                <div class="graph-container">
+                    <div class="section-title">
+                        <span>Monthly History</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="historyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="recent-notes">
+                    <div class="section-title">
+                        <span>Recently Processed Notes</span>
+                        <a href="history.html" style="color: var(--primary); text-decoration: none; font-size: 14px;">View all</a>
+                    </div>
+
+                    <div class="notes-grid">
+                        <div class="note-card">
+                            <div class="note-header">
+                                <div>
+                                    <h3 class="note-title">Quarterly Planning Meeting</h3>
+                                    <div class="note-date">Oct 15, 2023</div>
+                                </div>
+                                <div class="note-menu">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                            </div>
+
+                            <div class="note-content">
+                                <ul class="note-points">
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>Q4 goals and objectives finalized</div>
+                                    </li>
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>Budget allocation approved</div>
+                                    </li>
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>Team assignments distributed</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="note-card">
+                            <div class="note-header">
+                                <div>
+                                    <h3 class="note-title">Product Development Sync</h3>
+                                    <div class="note-date">Oct 12, 2023</div>
+                                </div>
+                                <div class="note-menu">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                            </div>
+
+                            <div class="note-content">
+                                <ul class="note-points">
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>New features discussed and prioritized</div>
+                                    </li>
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>Timeline adjustments for Q4 release</div>
+                                    </li>
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>Bug fixes assigned to development team</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="note-card">
+                            <div class="note-header">
+                                <div>
+                                    <h3 class="note-title">Client Presentation Review</h3>
+                                    <div class="note-date">Oct 10, 2023</div>
+                                </div>
+                                <div class="note-menu">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                            </div>
+
+                            <div class="note-content">
+                                <ul class="note-points">
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>Client feedback incorporated</div>
+                                    </li>
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>Next steps outlined for implementation</div>
+                                    </li>
+                                    <li class="note-point">
+                                        <div class="point-bullet"></div>
+                                        <div>Presentation adjustments finalized</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-btn">
+        <i class="fas fa-microphone"></i>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.2.2/docx.umd.js"></script>
+    <script src="assets/js/toast.js"></script>
+    <script src="assets/js/dashboard/dashboard.js"></script>
+</body>
+
+</html>

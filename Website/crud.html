@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MongoDB App Services CRUD</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+  input { padding: 5px; margin: 5px; }
+  button { padding: 5px 10px; margin: 5px; cursor: pointer; }
+  ul { margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>MongoDB Atlas App Services CRUD</h1>
+
+<h3>Add Document</h3>
+<input type="text" id="name" placeholder="Name">
+<input type="number" id="age" placeholder="Age">
+<button id="addBtn">Add</button>
+
+<h3>Fetch All Documents</h3>
+<button id="fetchBtn">Fetch</button>
+<ul id="results"></ul>
+
+<script>
+// Replace with your App ID and Public API Key
+const APP_ID = "3674a77753904f9f91f05d1fc731aa55";
+const API_KEY = "owmoxuwe";
+
+const BASE_URL = `https://realm.mongodb.com/api/client/v2.0/app/${APP_ID}/endpoint`;
+
+// Add Document
+document.getElementById("addBtn").addEventListener("click", async () => {
+    const name = document.getElementById("name").value;
+    const age = parseInt(document.getElementById("age").value);
+
+    if(!name || !age){ alert("Enter valid data"); return; }
+
+    const response = await fetch(`${BASE_URL}/insert`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "api-key": API_KEY
+        },
+        body: JSON.stringify({ name, age })
+    });
+
+    const result = await response.json();
+    alert("Document inserted!");
+    console.log(result);
+
+    document.getElementById("name").value = "";
+    document.getElementById("age").value = "";
+});
+
+// Fetch Documents
+document.getElementById("fetchBtn").addEventListener("click", async () => {
+    const response = await fetch(`${BASE_URL}/fetch`, {
+        method: "GET",
+        headers: { "api-key": API_KEY }
+    });
+
+    const data = await response.json();
+    const ul = document.getElementById("results");
+    ul.innerHTML = "";
+
+    data.forEach(doc => {
+        const li = document.createElement("li");
+        li.textContent = `Name: ${doc.name}, Age: ${doc.age}`;
+        ul.appendChild(li);
+    });
+});
+</script>
+
+</body>
+</html>

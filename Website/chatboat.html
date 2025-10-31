@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkToText Pro - Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="assets/css/dashboard/chatboat.css">
+   <link rel="stylesheet" href="assets/css/toast.css">
+</head>
+
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <div class="logo-text">TalkToText Pro</div>
+                </div>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="nav-item" data-page="dashboard.html">
+                    <div class="nav-icon"><i class="fas fa-home"></i></div>
+                    <div class="nav-text">Home</div>
+                </div>
+
+                <div class="nav-item" data-page="authentication/profile.html" style="display: none;">
+                    <div class="nav-icon"><i class="fas fa-user"></i></div>
+                    <div class="nav-text">Profile</div>
+                </div>
+
+                <div class="nav-item active" data-page="chatboat.html">
+                    <div class="nav-icon"><i class="fas fa-comments"></i></div>
+                    <div class="nav-text">Chat</div>
+                </div>
+
+                <div class="nav-item" data-page="history.html" style="display: none;">
+                    <div class="nav-icon"><i class="fas fa-history"></i></div>
+                    <div class="nav-text">History</div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="nav-item" id="logoutBtn" onclick="logoutUser()">
+                    <div class="nav-icon"><i class="fas fa-sign-out-alt"></i></div>
+                    <div class="nav-text">Logout</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay for mobile -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <div class="header-actions">
+                    <div class="theme-toggle" id="theme-toggle">
+                        <div class="theme-toggle-handle"></div>
+                    </div>
+
+                    <div class="user-profile">
+                        <div class="user-avatar" id="u_avatar">Mr.</div>
+                        <div class="user-info">
+                            <div class="user-name" id="u_name">Mr...</div>
+                            <div class="user-role" id="u_role">Guest User</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div id="pdfModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Send PDF via Email</h3>
+                        <span class="modal-close" onclick="closePDFModal()">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <input type="email" id="modalEmailInput" class="modal-input" placeholder="Recipient Email"
+                            required>
+                        <div id="modalSuccessMessage" class="success-message" style="display: none;">
+                            <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                            <p>PDF sent successfully!</p>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="modal-btn modal-btn-secondary" onclick="closePDFModal()">Cancel</button>
+                        <button class="modal-btn modal-btn-primary" id="sendEmail">Send PDF</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <div>
+                            <h1 class="chat-title">Audio to Text Converter</h1>
+                            <p class="chat-subtitle">Upload audio files or record directly to convert to text</p>
+                        </div>
+                        <div class="zoom-controls">
+                            <button class="zoom-btn" id="zoomOut" title="Zoom Out">A-</button>
+                            <button class="zoom-btn" id="zoomReset" title="Reset Zoom">A</button>
+                            <button class="zoom-btn" id="zoomIn" title="Zoom In">A+</button>
+                        </div>
+                    </div>
+
+                    <div class="language-selector">
+                        <label for="languageSelect">Transcription Language:</label>
+                        <select id="languageSelect">
+                            <option value="en" selected>English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="hi">Hindi</option>
+                            <option value="ur">Urdu</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        <div class="message-content">
+                            Hello! I'm your audio transcription assistant. Send me an audio file and I'll convert it to
+                            text for you.
+                        </div>
+                        <div class="message-meta">
+                            <span>TalkToText Pro</span>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-container" id="progressContainer" style="display: none;">
+                    <div class="progress-bar" id="progressBar"></div>
+                    <div class="progress-text" id="progressText">Processing... 0%</div>
+                </div>
+                <div class="chat-input-container">
+                    <div class="audio-input">
+                        <input type="file" id="audioFile" accept="audio/*" class="file-input">
+                        <label for="audioFile" class="file-label">
+                            <i class="fas fa-upload"></i>
+                            Choose File
+                        </label>
+
+                        <button class="record-btn" id="recordBtn">
+                            <i class="fas fa-microphone"></i>
+                            Record
+                        </button>
+
+                        <div id="selectedFileContainer" class="selected-file" style="display: none;">
+                            <span id="selectedFileName">No file selected</span>
+                            <span class="remove-file" id="removeFile">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Google Drive shared link input -->
+                    <div class="drive-link-input" style="display:flex; gap:8px; align-items:center; width:100%; margin-top:10px;">
+                        <input id="driveLinkInput" type="url" placeholder="Paste Google Drive shared link to audio (public)" style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-tertiary); color:var(--text-primary);">
+                        <button id="sendDriveLinkBtn" class="send-btn" style="white-space:nowrap;">
+                            <i class="fas fa-link"></i>
+                            Transcribe Link
+                        </button>
+                    </div>
+
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.2.2/docx.umd.js"></script>
+    <script src="assets/js/toast.js"></script>
+  <script src="assets/js/dashboard/chatboat.js"></script>
+</body>
+
+</html>

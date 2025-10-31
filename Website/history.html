@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkToText Pro - History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/dashboard/history.css">
+    <link rel="stylesheet" href="assets/css/toast.css">
+</head>
+
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <div class="logo-text">TalkToText Pro</div>
+                </div>
+            </div>
+
+            <div class="sidebar-nav">
+               <div class="nav-item" data-page="dashboard.html" >
+                    <div class="nav-icon"><i class="fas fa-home"></i></div>
+                    <div class="nav-text">Home</div>
+                </div>
+
+                <div class="nav-item" data-page="authentication/profile.html" style="display: none;">
+                    <div class="nav-icon"><i class="fas fa-user"></i></div>
+                    <div class="nav-text">Profile</div>
+                </div>
+
+                <div class="nav-item " data-page="chatboat.html">
+                    <div class="nav-icon"><i class="fas fa-comments"></i></div>
+                    <div class="nav-text">Chat</div>
+                </div>
+
+                <div class="nav-item active" data-page="history.html" style="display: none;">
+                    <div class="nav-icon"><i class="fas fa-history"></i></div>
+                    <div class="nav-text">History</div>
+                </div>
+               
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="nav-item" id="logoutBtn" onclick="logoutUser()">
+                    <div class="nav-icon"><i class="fas fa-sign-out-alt"></i></div>
+                    <div class="nav-text">Logout</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay for mobile -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <div class="header-actions">
+                    <div class="theme-toggle" id="theme-toggle">
+                        <div class="theme-toggle-handle"></div>
+                    </div>
+
+                    <div class="user-profile">
+                        <div class="user-avatar" id="u_avatar">M.</div>
+                        <div class="user-info">
+                            <div class="user-name" id="u_name">Mr...</div>
+                            <div class="user-role" id="u_role">Premium User</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">History</h1>
+                    <p class="page-subtitle">View and manage your transcription history</p>
+                </div>
+
+                <div class="history-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Transcription History</h2>
+                        <div class="search-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="search-input" id="searchInput" placeholder="Search history...">
+                        </div>
+                    </div>
+
+                    <div class="history-actions">
+                        <button class="btn btn-danger" id="deleteSelectedBtn" disabled>
+                            <i class="fas fa-trash-alt"></i> Delete Selected
+                        </button>
+                        <button class="btn btn-outline" id="deleteAllBtn">
+                            <i class="fas fa-broom"></i> Delete All
+                        </button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
+                    <div class="history-list" id="historyList">
+                        <!-- History items will be dynamically inserted here -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination">
+                        <button class="pagination-btn" id="prevPage" disabled>Previous</button>
+                        <span class="pagination-info" id="paginationInfo">Page 1 of 1</span>
+                        <button class="pagination-btn" id="nextPage" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Detail Modal -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Transcription Details</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Title</span>
+                        <span class="detail-value" id="detailTitle">Team Meeting</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Date</span>
+                        <span class="detail-value" id="detailDate">Oct 15, 2023</span>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Transcription</span>
+                    <div class="transcription-content">
+                        <p class="transcription-text" id="detailTranscription">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget ultricies
+                            ultricies, nunc nisl aliquam nunc, eget aliquam nisl nisl eget nisl. Nullam euismod, nisl
+                            eget ultricies ultricies, nunc nisl aliquam nunc, eget aliquam nisl nisl eget nisl.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-download" id="downloadTxt">
+                    <i class="fas fa-file-alt"></i> Download as Text
+                </button>
+                <button class="btn btn-download" id="downloadWord">
+                    <i class="fas fa-file-pdf"></i> Download as Word
+                </button>
+                <button class="btn btn-download" id="downloadPdf">
+                    <i class="fas fa-file-pdf"></i> Download as PDF
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Add these in your HTML <head> or before your JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.2.2/docx.umd.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/toast.js"></script>
+    <script src="assets/js/dashboard/history.js"></script>
+</body>
+
+</html>

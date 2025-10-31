@@ -1,0 +1,37 @@
+ body {
+      background:#121212;
+      color:#fff;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+    .auth-card {
+      background:#1e1e1e;
+      padding:2rem;
+      border-radius:1rem;
+      box-shadow:0 0 25px rgba(0,0,0,0.6);
+      max-width:400px;
+      width:100%;
+      animation:fadeIn 0.7s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity:0;transform:translateY(20px);}
+      to {opacity:1;transform:translateY(0);}
+    }
+    .form-control {
+      background:#2a2a2a;
+      border:none;
+      color:#fff;
+    }
+    .form-control:focus {
+      box-shadow:0 0 12px #0d6efd;
+    }
+    .toggle-password {
+      cursor:pointer;
+      position:absolute;
+      right:10px;
+      top:30px;
+      color:#aaa;
+      font-size:1.2rem;
+    }
